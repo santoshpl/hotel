@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <h1>Delete Booking</h1>
+    <p th:if="${error}" th:text="${error}" class="error"></p>
+    <p th:if="${success}" th:text="${success}" class="success"></p>
+
+    <form th:action="@{/delete/{id}(id=${room.roomId})}" th:object="${room}" method="post">
+        <label>Room Id</label>
+        <input type="number" th:field="*{roomId}" readonly class="readonly"><br>
+
+        <label>Room Type</label>
+        <input type="text" th:field="*{roomType}" readonly class="readonly"><br>
+
+        <label>Room Price</label>
+        <input type="number" th:field="*{roomPrice}" readonly class="readonly"><br>
+
+        <label>Availability</label>
+        <input type="text" th:field="*{availability}" readonly class="readonly"><br>
+
+        <button type="submit">Delete</button>
+    </form>
+    <a href="/">Back</a>
+</body>
+</html>

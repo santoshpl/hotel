@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Management System</title>
+    <link rel="stylesheet" th:href="@{/css/newStyle.css}" />
+</head>
+<body>
+    <header>
+        <h1>Hotel Room Booking System</h1>
+    </header>
+    <main>
+        <section class="room-management">
+            <h2>Manage Rooms</h2>
+            <form id="room-form" th:action="@{/add-room}" th:object="${room}" method="post">
+                <input type="text" id="room-type" placeholder="Room Type" th:field="*{type}" required>
+                <input type="number" id="room-price" placeholder="Price" th:field="*{price}" required>
+                <select id="room-availability" th:field="*{availability}">
+                    <option value="">Select Availability</option>
+                    <option value="available">Available</option>
+                    <option value="booked">Booked</option>
+                </select>
+                <!-- <select id="room-availability" th:field="*{availability}">
+                    <option value="" th:selected="${room.availability == null}">Select Availability</option>
+                    <option value="true" th:selected="${room.availability == true}">Available</option>
+                    <option value="false" th:selected="${room.availability == false}">Booked</option>
+                </select> -->
+                <button type="submit">Add Room</button>
+            </form>
+
+            <h2>All Rooms</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Availability</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="room : ${rooms}">
+                        <td th:text="${room.id}"></td>
+                        <td th:text="${room.type}"></td>
+                        <td th:text="${room.price}"></td>
+                        <td th:text="${room.availability}"></td>
+                        <td>
+                            <a th:href="@{/edit/{roomId}(roomId=${room.id})}">Edit</a> |
+                            <a th:href="@{/delete/{roomId}(roomId=${room.id})}">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="booking-management">
+            <h2>Book a Room</h2>
+            <form id="booking-form">
+                <input type="text" id="guest-name" placeholder="Guest Name" required>
+                <input type="date" id="check-in" required>
+                <input type="date" id="check-out" required>
+                <select id="room-select"></select>
+                <button type="submit">Book Room</button>
+            </form>
+            <ul id="booking-list"></ul>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
